@@ -41,7 +41,9 @@ class MainActivity : AppCompatActivity() {
             1-> image.setImageResource(R.drawable.one)
             2-> image.setImageResource(R.drawable.two)
             3-> image.setImageResource(R.drawable.three)
-            else -> {}
+            else -> {
+                image.setImageResource(R.drawable.one)
+            }
         }
     }
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
