@@ -1,15 +1,10 @@
 package ru.madbrains.android
 
-import android.app.Activity
 import android.content.Intent
-import android.content.Intent.EXTRA_TEXT
-import android.graphics.drawable.Drawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.example.les_4.R
 import com.example.les_4.databinding.ActivityMainMadBinding
 import ru.irlix.android.MainActivity
