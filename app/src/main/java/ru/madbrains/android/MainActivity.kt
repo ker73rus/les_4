@@ -8,29 +8,29 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.les_4.R
 import com.example.les_4.databinding.ActivityMainMadBinding
 import ru.irlix.android.MainActivity
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var image : ImageView
+    private var num = 0
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainMadBinding.inflate(layoutInflater)
-
-
-
+        image = binding.imageView
         setContentView(binding.root)
-        binding.imageView.setImageResource(R.drawable.one)
+        setImage(1)
 
         val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             if(it.resultCode == RESULT_OK){
-                val res = it.data?.getIntExtra("RETURNED_EXTRA",0)
-                when (res) {
-                    1-> binding.imageView.setImageResource(R.drawable.one)
-                    2-> binding.imageView.setImageResource(R.drawable.two)
-                    3-> binding.imageView.setImageResource(R.drawable.three)
-                }
+                val res = it.data?.getIntExtra("RETURNED_EXTRA",0) ?: 0
+                setImage(res)
             }
         }
 
@@ -38,16 +38,25 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener(){
             resultLauncher.launch(intent)
         }
+
     }
-
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        outState?.run {
-
+    fun setImage(res :Int){
+        num = res
+        when (num) {
+            1-> image.setImageResource(R.drawable.one)
+            2-> image.setImageResource(R.drawable.two)
+            3-> image.setImageResource(R.drawable.three)
+            else -> {}
         }
-        super.onSaveInstanceState(outState, outPersistentState)
     }
-
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
+        setImage(savedInstanceState.getInt("IMG"))
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("IMG", num)
+    }
+
 }
